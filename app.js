@@ -76,12 +76,12 @@ app.post("/contact", (req, res) => {
   res.json(result);
 });
 
-app.get("/contact/:id", (req, res) => {
-  const stmt = db.prepare(
-    "SELECT first_name, last_name, email FROM kontak WHERE kontak_id = ?",
-  );
-  let result = stmt.get(req.params.id);
-  res.json(result);
+app.delete("/contact", (req, res) => {
+  const stmt = db.prepare("DELETE FROM kontak WHERE kontak_id = ?");
+  let result = stmt.run(req.body.contactId);
+  console.log(req.body.contactId);
+
+  res.redirect(303, "/");
 });
 
 app.put("/contact/:id", (req, res) => {
@@ -97,9 +97,11 @@ app.put("/contact/:id", (req, res) => {
   res.json(result);
 });
 
-app.delete("/contact/:id", (req, res) => {
-  const stmt = db.prepare("DELETE FROM kontak WHERE kontak_id = ?");
-  let result = stmt.run(req.params.id);
+app.get("/contact/:id", (req, res) => {
+  const stmt = db.prepare(
+    "SELECT first_name, last_name, email FROM kontak WHERE kontak_id = ?",
+  );
+  let result = stmt.get(req.params.id);
   res.json(result);
 });
 
