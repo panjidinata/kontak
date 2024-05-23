@@ -46,16 +46,16 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/view/index.html");
 });
 
-app.get("/contact", (req, res) => {
-  res.json("list contact");
-});
-
 app.post("/contact", (req, res) => {
   res.json("add contact");
 });
 
 app.get("/contact/:id", (req, res) => {
-  res.json("contact detail");
+  const stmt = db.prepare(
+    "SELECT full_name, email FROM kontak WHERE kontak_id = ?",
+  );
+  let result = stmt.get(req.params.id);
+  res.json(result);
 });
 
 app.put("/contact/:id", (req, res) => {
@@ -64,6 +64,10 @@ app.put("/contact/:id", (req, res) => {
 
 app.delete("/contact/:id", (req, res) => {
   res.json("delete contact");
+});
+
+app.get("/contacts", (req, res) => {
+  res.json(listContact);
 });
 
 app.listen(port, () => {
