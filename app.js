@@ -52,7 +52,7 @@ app.post("/contact", (req, res) => {
 
 app.get("/contact/:id", (req, res) => {
   const stmt = db.prepare(
-    "SELECT full_name, email FROM kontak WHERE kontak_id = ?",
+    "SELECT first_name, last_name, email FROM kontak WHERE kontak_id = ?",
   );
   let result = stmt.get(req.params.id);
   res.json(result);
