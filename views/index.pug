@@ -4,8 +4,20 @@ html(lang="en")
     title Kontak Manager
   body
     h1 Kontak
-    div.listKontak
+    div.formContact
+      form(action="/contact" method="post")
+        label First Name: 
+        input(type="text" name="firstName")
+        label Last Name: 
+        input(type="text", name="lastName")
+        label email: 
+        input(type="email", name="email")
+
+        input(type="submit", value="Save")
+
+    div.listContacts
       ul
-        li 1 asdfa
-        li 2 asdfa
-        li 3 asfasdf
+        each val in contacts
+          li
+            p= "Name: " + val.first_name +" " + val.last_name
+            p= "Email: " + val.email
