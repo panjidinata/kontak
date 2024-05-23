@@ -67,7 +67,16 @@ app.get("/contact/:id", (req, res) => {
 });
 
 app.put("/contact/:id", (req, res) => {
-  res.json("update contact");
+  const stmt = db.prepare(
+    "UPDATE kontak SET first_name = ?, last_name = ?, email = ? WHERE kontak_id = ?",
+  );
+  let result = stmt.run(
+    req.body.firstName,
+    req.body.lastName,
+    req.body.email,
+    req.body.kontakId,
+  );
+  res.json(result);
 });
 
 app.delete("/contact/:id", (req, res) => {
