@@ -48,10 +48,15 @@ app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "pug");
 
 app.get("/", (req, res) => {
-  res.render("index");
+  const stmt = db.prepare("SELECT * FROM kontak");
+  let result = stmt.all();
+
+  res.render("index", { contacts: result });
 });
 
 app.post("/contact", (req, res) => {
+  console.log(req.body);
+
   const stmt = db.prepare(
     "INSERT INTO kontak (first_name, last_name, email) values (?,?,?)",
   );
