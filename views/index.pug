@@ -21,3 +21,8 @@ html(lang="en")
           li
             p= "Name: " + val.first_name +" " + val.last_name
             p= "Email: " + val.email
+            form(action="/contact" method="POST")
+              input(type="hidden" name="_method" value="DELETE" readonly)
+              input(type="hidden" id="contactId" name="contactId" value=val.kontak_id readonly)
+              input(type="submit" value="Delete")
+
