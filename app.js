@@ -63,7 +63,9 @@ app.put("/contact/:id", (req, res) => {
 });
 
 app.delete("/contact/:id", (req, res) => {
-  res.json("delete contact");
+  const stmt = db.prepare("DELETE FROM kontak WHERE kontak_id = ?");
+  let result = stmt.run(req.params.id);
+  res.json(result);
 });
 
 app.get("/contacts", (req, res) => {
