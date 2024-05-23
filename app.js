@@ -67,7 +67,9 @@ app.delete("/contact/:id", (req, res) => {
 });
 
 app.get("/contacts", (req, res) => {
-  res.json(listContact);
+  const stmt = db.prepare("SELECT * FROM kontak");
+  let result = stmt.all();
+  res.json(result);
 });
 
 app.listen(port, () => {
