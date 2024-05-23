@@ -45,8 +45,10 @@ console.log(listContact);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.set("view engine", "pug");
+
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/view/index.html");
+  res.render("index");
 });
 
 app.post("/contact", (req, res) => {
