@@ -50,7 +50,12 @@ app.get("/", (req, res) => {
 });
 
 app.post("/contact", (req, res) => {
-  res.json("add contact");
+  const stmt = db.prepare(
+    "INSERT INTO kontak (first_name, last_name, email) values (?,?,?)",
+  );
+  let result = stmt.run(req.body.firstName, req.body.lastName, req.body.email);
+
+  res.json(result);
 });
 
 app.get("/contact/:id", (req, res) => {
