@@ -42,6 +42,9 @@ listContact = stmt.all();
 
 console.log(listContact);
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/view/index.html");
 });
