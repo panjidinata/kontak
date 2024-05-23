@@ -11,18 +11,25 @@ faker.seed(123);
 let contacts = [];
 
 for (let i = 0; i < 10; i++) {
-  const randName = faker.person.fullName();
-  const randEmail = faker.internet.email();
+  const randFirst = faker.person.firstName();
+  const randLast = faker.person.lastName();
 
-  contacts.push({ fullname: randName, email: randEmail });
+  const randEmail = faker.helpers.unique(faker.internet.email, [
+    randFirst,
+    randLast,
+  ]);
+
+  contacts.push({ firstName: randFirst, lastName: randLast, email: randEmail });
 }
 
 db.exec("DROP TABLE IF EXISTS kontak");
-db.exec("CREATE TABLE IF NOT EXISTS kontak (full_name TEXT, email TEXT)");
+db.exec(
+  "CREATE TABLE IF NOT EXISTS kontak (kontak_id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT, email TEXT)",
+);
 let stmt = db.prepare("SELECT * FROM kontak");
 
 const insert = db.prepare(
-  "INSERT INTO kontak (full_name, email) VALUES (@fullname, @email)",
+  "INSERT INTO kontak (first_name, last_name, email) VALUES (@firstName, @lastName, @email)",
 );
 
 const insertMany = db.transaction((data) => {
