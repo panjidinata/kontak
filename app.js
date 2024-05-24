@@ -98,7 +98,8 @@ app.put("/contact", (req, res) => {
     req.body.formEmail,
     req.body.formContactId,
   );
-  res.json(result);
+
+  res.redirect(303, "/");
 });
 
 app.get("/contact/:id", (req, res) => {
