@@ -71,7 +71,11 @@ app.post("/contact", (req, res) => {
   const stmt = db.prepare(
     "INSERT INTO kontak (first_name, last_name, email) values (?,?,?)",
   );
-  let result = stmt.run(req.body.firstName, req.body.lastName, req.body.email);
+  let result = stmt.run(
+    req.body.formFirstName,
+    req.body.formLastName,
+    req.body.formEmail,
+  );
 
   res.json(result);
 });
