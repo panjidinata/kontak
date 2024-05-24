@@ -5,15 +5,17 @@ html(lang="en")
   body
     h1 Kontak
     div.formContact
-      form(action="/contact" method="post")
+      form(action="/contact" method="POST")
+        input(type="hidden" id="formMethod" name="_method" value="POST")
+        input(type="hidden" id="formContactId" name="formContactId" value="")
         label First Name: 
-        input(type="text" name="firstName")
+        input(type="text" id="formFirstName" name="formFirstName")
         label Last Name: 
-        input(type="text", name="lastName")
+        input(type="text" id="formLastName" name="formLastName")
         label email: 
-        input(type="email", name="email")
+        input(type="email" id="formEmail" name="formEmail")
 
-        input(type="submit", value="Save")
+        input(type="submit" value="Save")
 
     div.listContacts
       ul
@@ -21,8 +23,33 @@ html(lang="en")
           li
             p= "Name: " + val.first_name +" " + val.last_name
             p= "Email: " + val.email
+            button(onclick=`fillForm(${JSON.stringify(val)})`) Update
             form(action="/contact" method="POST")
               input(type="hidden" name="_method" value="DELETE" readonly)
               input(type="hidden" id="contactId" name="contactId" value=val.kontak_id readonly)
               input(type="submit" value="Delete")
 
+    script(type="text/javascript").
+      function fillForm(data) {
+        let formMethod = document.querySelector("#formMethod");
+        let formContactId = document.querySelector("#formContactId");
+        let formFirstName = document.querySelector("#formFirstName");
+        let formLastName = document.querySelector("#formLastName");
+        let formEmail = document.querySelector("#formEmail");
+
+        console.log(data);
+
+        formMethod.value = "PUT";
+        formContactId.value = data.kontak_id;
+        formFirstName.value = data.first_name;
+        formLastName.value = data.last_name;
+        formEmail.value = data.email;
+        
+        console.log({
+          method: formMethod.value, 
+          id: formContactId.value, 
+          firstName: formFirstName.value, 
+          lastName: formLastName.value, 
+          email: formEmail.value
+        });
+      };

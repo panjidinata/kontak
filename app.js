@@ -84,15 +84,15 @@ app.delete("/contact", (req, res) => {
   res.redirect(303, "/");
 });
 
-app.put("/contact/:id", (req, res) => {
+app.put("/contact", (req, res) => {
   const stmt = db.prepare(
     "UPDATE kontak SET first_name = ?, last_name = ?, email = ? WHERE kontak_id = ?",
   );
   let result = stmt.run(
-    req.body.firstName,
-    req.body.lastName,
-    req.body.email,
-    req.body.kontakId,
+    req.body.formFirstName,
+    req.body.formLastName,
+    req.body.formEmail,
+    req.body.formContactId,
   );
   res.json(result);
 });
