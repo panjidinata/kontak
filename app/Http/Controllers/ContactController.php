@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $results = Contact::all();
-        return $results;
+        return view("index", ["contacts" => $results]);
     }
 
     /**
