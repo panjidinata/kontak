@@ -60,14 +60,14 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
         $contact = Contact::find($id);
-        $contact->name = $request->name;
-        $contact->email = $request->email;
+        $contact->name = $request->fName;
+        $contact->email = $request->fEmail;
         $contact->save();
 
-        return "contact updated";
+        return redirect()->route("index");
     }
 
     /**
