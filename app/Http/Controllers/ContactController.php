@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -11,7 +12,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return "get all contact";
+        $results = Contact::all();
+        return $results;
     }
 
     /**
@@ -27,7 +29,12 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $contact = new Contact;
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->save();
+
+        return "added new contact";
     }
 
     /**
@@ -35,7 +42,8 @@ class ContactController extends Controller
      */
     public function show(string $id)
     {
-        return "show contact details";
+        $result = Contact::findOrFail($id);
+        return $result;
     }
 
     /**
@@ -51,7 +59,12 @@ class ContactController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return "update contact details";
+        $contact = Contact::find($id);
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->save();
+
+        return "contact updated";
     }
 
     /**
@@ -59,6 +72,7 @@ class ContactController extends Controller
      */
     public function destroy(string $id)
     {
-        return "delete contact";
+        $contact = Contact::destroy($id);
+        return "contact deleted";
     }
 }
