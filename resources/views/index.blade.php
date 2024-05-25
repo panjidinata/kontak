@@ -16,6 +16,11 @@
                 <p>Email: {{$contact->email}}</p>
                 <br>
                 <a href="{{ route('contacts.edit', ['contact' => $contact->id]) }}">Update</a>
+                <form action="{{ route('contacts.destroy', ['contact' => $contact->id]) }}" method="POST">
+                    @csrf
+                    @method("DELETE")
+                    <input type="submit" value="Delete">
+                </form>
             </li>
             @endforeach
         </ul>
