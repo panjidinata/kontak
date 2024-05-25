@@ -16,6 +16,9 @@ class ContactFactory extends Factory
      */
     public function definition(): array
     {
+        return [
+            "name" => fake()->name();
+            "email" => fake()->email()->safeEmail();
         ];
     }
 }
