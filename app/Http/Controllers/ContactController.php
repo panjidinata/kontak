@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class ContactController extends Controller
 {
@@ -28,14 +29,14 @@ class ContactController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $contact = new Contact;
-        $contact->name = $request->name;
-        $contact->email = $request->email;
+        $contact->name = $request->fName;
+        $contact->email = $request->fEmail;
         $contact->save();
 
-        return "added new contact";
+        return redirect()->route("index");
     }
 
     /**
