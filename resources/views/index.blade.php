@@ -14,6 +14,8 @@
             <li>
                 <p>Name: {{$contact->name}}</p>
                 <p>Email: {{$contact->email}}</p>
+                <br>
+                <a href="{{ route('contacts.edit', ['contact' => $contact->id]) }}">Update</a>
             </li>
             @endforeach
         </ul>
