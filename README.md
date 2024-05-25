@@ -13,3 +13,8 @@ aplikasi manajemen kontak berbasis web yang ditulis dengan berbagai bahasa pemro
    * Todo:
         - error handling practically doesn't exist
         - hideous ui
+2. PHP(Laravel)
+   * Todo:
+        - Add Test
+        - Better Error Handling
+        - Better UI.
